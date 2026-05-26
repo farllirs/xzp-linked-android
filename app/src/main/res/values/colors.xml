@@ -4,6 +4,7 @@
     <color name="bg_light">#FAF8F5</color>
     <color name="surface_light">#FFFFFF</color>
     <color name="bg_secondary_light">#F5F3F0</color>
+    <color name="surface_secondary_light">#F5F3F0</color>
 
     <!-- Colores de Fondo (Dark) -->
     <color name="bg_dark">#0F0F0F</color>
@@ -14,6 +15,7 @@
     <color name="text_primary_light">#1A1A1A</color>
     <color name="text_secondary_light">#6B6B6B</color>
     <color name="text_muted_light">#A0A0A0</color>
+    <color name="icon_light">#1A1A1A</color>
 
     <!-- Colores de Texto (Dark) -->
     <color name="text_primary_dark">#F5F5F5</color>
@@ -30,7 +32,9 @@
 
     <!-- Pasteles (Material You / Neobrutalism) -->
     <color name="accent_mint">#B8F0D8</color>
+    <color name="accent_mint_dark">#70C8A0</color>
     <color name="accent_lilac">#E4D4F4</color>
+    <color name="accent_lilac_dark">#B090D0</color>
     <color name="accent_blue">#C8E6FF</color>
     <color name="accent_cream">#FFF3D6</color>
     <color name="accent_peach">#FFD9C8</color>
