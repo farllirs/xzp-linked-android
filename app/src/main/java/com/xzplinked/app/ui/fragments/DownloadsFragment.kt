@@ -169,7 +169,7 @@ class DownloadsFragment : Fragment() {
                 showToast("Descarga iniciada")
                 binding.urlInput.setText("")
             } else {
-                showToast("Error al procesar la URL (API no disponible)")
+                showToast("Error: API no disponible o URL no soportada")
             }
 
             binding.downloadBtn.isEnabled = true

@@ -270,7 +270,9 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == PERMISSION_REQUEST_CODE) {
             val allGranted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
-            if (!allGranted) {
+            if (allGranted) {
+                viewModel.refreshTracks()
+            } else {
                 // Mostrar mensaje de error
                 showPermissionError()
             }

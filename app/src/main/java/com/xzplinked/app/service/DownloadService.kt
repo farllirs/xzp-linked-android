@@ -50,13 +50,25 @@ class DownloadService : Service() {
     }
 
     private fun downloadFile(url: String, fileName: String, downloadPath: String, downloadId: String) {
-        var inputStream: InputStream? = null
-        var outputStream: OutputStream? = null
+        var inputStream: java.io.InputStream? = null
+        var outputStream: java.io.OutputStream? = null
         try {
-            val connection = URL(url).openConnection() as URLConnection
-            connection.connect()
+            val connection = URL(url).openConnection() as java.net.HttpURLConnection
+            connection.apply {
+                connectTimeout = 15000
+                readTimeout = 15000
+                instanceFollowRedirects = true
+                setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36")
+                connect()
+            }
+            
+            val responseCode = connection.responseCode
+            if (responseCode !in 200..299) {
+                throw Exception("Servidor respondió con código: $responseCode")
+            }
+
             val fileLength = connection.contentLength
-            inputStream = connection.getInputStream()
+            inputStream = connection.inputStream
 
             if (downloadPath.startsWith("content://")) {
                 val treeUri = Uri.parse(downloadPath)
