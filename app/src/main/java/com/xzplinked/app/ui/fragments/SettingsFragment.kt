@@ -41,12 +41,6 @@ class SettingsFragment : Fragment() {
     private fun setupThemeSelector() {
         val currentTheme = viewModel.getCurrentTheme()
 
-        when (currentTheme) {
-            "light" -> binding.themeLightButton.isSelected = true
-            "dark" -> binding.themeDarkButton.isSelected = true
-            "system" -> binding.themeSystemButton.isSelected = true
-        }
-
         binding.themeLightButton.setOnClickListener {
             selectTheme("light")
         }
@@ -58,16 +52,6 @@ class SettingsFragment : Fragment() {
         binding.themeSystemButton.setOnClickListener {
             selectTheme("system")
         }
-    }
-
-    private fun selectTheme(theme: String) {
-        viewModel.setTheme(theme)
-
-        binding.themeLightButton.isSelected = theme == "light"
-        binding.themeDarkButton.isSelected = theme == "dark"
-        binding.themeSystemButton.isSelected = theme == "system"
-
-        showToast("Tema cambiado a: $theme")
     }
 
     private fun setupAccentColorPalette() {
@@ -84,29 +68,20 @@ class SettingsFragment : Fragment() {
             "lavender" to binding.colorLavender
         )
 
-        colors.forEach { (colorName, button) ->
-            button.setOnClickListener {
+        colors.forEach { (colorName, view) ->
+            view.setOnClickListener {
                 selectAccentColor(colorName)
             }
         }
+        
+        // Marcar el color actual (podrías agregar un borde o check)
     }
 
     private fun selectAccentColor(color: String) {
         viewModel.setAccentColor(color)
-
-        // Actualizar estado visual de los botones
-        binding.colorMint.isSelected = color == "mint"
-        binding.colorLilac.isSelected = color == "lilac"
-        binding.colorBlue.isSelected = color == "blue"
-        binding.colorCream.isSelected = color == "cream"
-        binding.colorPeach.isSelected = color == "peach"
-        binding.colorYellow.isSelected = color == "yellow"
-        binding.colorRose.isSelected = color == "rose"
-        binding.colorSage.isSelected = color == "sage"
-        binding.colorSky.isSelected = color == "sky"
-        binding.colorLavender.isSelected = color == "lavender"
-
         showToast("Color de acento: $color")
+        
+        // Aquí podrías notificar a MainActivity para que cambie el color primario dinámicamente
     }
 
     private fun setupDownloadPath() {

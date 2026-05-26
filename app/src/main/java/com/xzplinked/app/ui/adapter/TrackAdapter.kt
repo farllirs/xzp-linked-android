@@ -30,23 +30,14 @@ class TrackAdapter(
                 trackArtist.text = item.artist
                 trackDuration.text = item.duration
 
-                // Mostrar icono según el formato
-                val iconRes = when (item.format.lowercase()) {
-                    "mp3" -> android.R.drawable.ic_media_play
-                    "m4a" -> android.R.drawable.ic_media_play
-                    "wav" -> android.R.drawable.ic_media_play
-                    else -> android.R.drawable.ic_media_play
-                }
-                trackArtwork.setImageResource(iconRes)
-
-                // Marcar como favorito si lo es
-                if (item.isFavorite) {
-                    favoriteIcon.visibility = android.view.View.VISIBLE
-                } else {
-                    favoriteIcon.visibility = android.view.View.GONE
-                }
+                // Usar iconos locales si existen
+                trackArt.setImageResource(com.xzplinked.app.R.drawable.ic_music)
 
                 root.setOnClickListener {
+                    onTrackClick(item)
+                }
+                
+                trackMoreBtn.setOnClickListener {
                     onTrackClick(item)
                 }
             }

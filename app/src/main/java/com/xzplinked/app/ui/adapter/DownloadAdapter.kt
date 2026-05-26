@@ -25,26 +25,35 @@ class DownloadAdapter : ListAdapter<DownloadItem, DownloadAdapter.DownloadViewHo
         fun bind(item: DownloadItem) {
             binding.apply {
                 downloadTitle.text = item.title
-                downloadArtist.text = item.artist ?: "Desconocido"
-                downloadFormat.text = item.format.uppercase()
+                downloadFormatBadge.text = item.format.uppercase()
                 downloadQuality.text = item.quality
-                downloadSize.text = formatFileSize(item.size)
+                downloadSize.text = if (item.size > 0) formatFileSize(item.size) else "-- MB"
+
+                // Color según plataforma
+                val colorRes = when (item.platform) {
+                    "youtube" -> com.xzplinked.app.R.color.accent_rose
+                    "tiktok" -> com.xzplinked.app.R.color.accent_blue
+                    "instagram" -> com.xzplinked.app.R.color.accent_lilac
+                    "x" -> com.xzplinked.app.R.color.accent_mint
+                    else -> com.xzplinked.app.R.color.accent_cream
+                }
+                downloadThumb.setBackgroundResource(colorRes)
 
                 when (item.status) {
                     "downloading" -> {
-                        downloadProgress.visibility = android.view.View.VISIBLE
-                        downloadProgress.progress = item.progress
+                        downloadStatusIcon.setImageResource(com.xzplinked.app.R.drawable.ic_download)
+                        downloadStatusIcon.alpha = 0.5f
                     }
                     "completed" -> {
-                        downloadProgress.visibility = android.view.View.GONE
-                        downloadStatus.text = "✓ Completado"
+                        downloadStatusIcon.setImageResource(com.xzplinked.app.R.drawable.ic_check)
+                        downloadStatusIcon.alpha = 1.0f
                     }
                     "failed" -> {
-                        downloadProgress.visibility = android.view.View.GONE
-                        downloadStatus.text = "✗ Error"
+                        // Podrías usar un ic_error
+                        downloadStatusIcon.alpha = 1.0f
                     }
                     else -> {
-                        downloadProgress.visibility = android.view.View.GONE
+                        downloadStatusIcon.alpha = 0.3f
                     }
                 }
             }

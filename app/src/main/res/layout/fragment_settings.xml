@@ -9,555 +9,251 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
-        <!-- App Header -->
-        <LinearLayout
+        <!-- App Info Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NeobrutalCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/colorSurface"
-            android:padding="16dp"
-            android:elevation="2dp"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/accent_cream">
 
-            android:layout_marginBottom="24dp">
-
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/ic_launcher"
-                android:contentDescription="@string/app_name" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
-                android:layout_marginTop="12dp" />
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Versión 1.0.0 · Build 2025"
-                android:textSize="12sp"
-                android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_download"
+                    app:tint="@color/text_primary_light" />
 
-        <!-- Downloads Section -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XZP Linked"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/text_primary_light" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Versión 1.0.0 · Build 2026"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary_light" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Theme Selection -->
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descargas"
-            android:textSize="14sp"
+            android:text="Apariencia"
             android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="14sp"
             android:layout_marginBottom="12dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="?attr/colorSurface"
-            android:padding="16dp"
-            android:elevation="2dp"
-
+            android:orientation="horizontal"
             android:layout_marginBottom="24dp">
 
-            <!-- Download Path -->
+            <Button
+                android:id="@+id/theme_light_button"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Claro"
+                android:background="@drawable/bg_button_video"
+                android:textColor="?android:attr/textColorPrimary"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/theme_dark_button"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Oscuro"
+                android:background="@drawable/bg_button_audio"
+                android:textColor="?android:attr/textColorPrimary"
+                android:layout_marginHorizontal="4dp" />
+
+            <Button
+                android:id="@+id/theme_system_button"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Sistema"
+                android:background="@drawable/bg_button_primary"
+                android:textColor="?android:attr/textColorPrimary"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+
+        <!-- Accent Color Palette -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NeobrutalCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="16dp">
+                android:padding="16dp">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Color de acento"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Elige el color de identidad visual"
+                    android:textSize="12sp"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:layout_marginBottom="16dp" />
+
+                <GridLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="5"
+                    android:alignmentMode="alignMargins"
+                    android:columnOrderPreserved="false">
+
+                    <View android:id="@+id/color_mint" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_mint" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_lilac" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_lilac" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_blue" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_blue" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_cream" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_cream" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_peach" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_peach" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_yellow" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_yellow" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_rose" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_rose" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_sage" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_sage" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_sky" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_sky" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_lavender" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_lavender" android:layout_margin="4dp" />
+                </GridLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Downloads Settings -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descargas"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginBottom="12dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NeobrutalCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ruta de descarga"
-                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Carpeta donde se guardan los archivos"
-                    android:textSize="11sp"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:layout_marginBottom="8dp" />
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
 
                     <EditText
                         android:id="@+id/download_path_input"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="44dp"
                         android:layout_weight="1"
-                        android:hint="/Downloads/Music"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
                         android:background="@drawable/bg_input"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:textColorHint="?android:attr/textColorSecondary"
-                        android:textSize="12sp" />
+                        android:paddingHorizontal="12dp"
+                        android:textSize="12sp"
+                        android:editable="false" />
 
                     <Button
                         android:id="@+id/browse_btn"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="44dp"
                         android:text="Explorar"
-                        android:textSize="11sp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:background="@drawable/bg_button_secondary"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Default Quality -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Calidad por defecto"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Resolución de video y bitrate de audio"
-                    android:textSize="11sp"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:layout_marginBottom="8dp" />
-
-                <Spinner
-                    android:id="@+id/quality_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_spinner" />
-            </LinearLayout>
-
-            <!-- WiFi Only Toggle -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Solo con WiFi"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="?android:attr/textColorPrimary" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="No descargar con datos móviles"
-                        android:textSize="11sp"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:layout_marginTop="2dp" />
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_button_primary"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/toggle_wifi"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp" />
-            </LinearLayout>
-
-            <!-- Background Download Toggle -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Descarga en segundo plano"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="?android:attr/textColorPrimary" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Continuar al minimizar la app"
-                        android:textSize="11sp"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
+                    android:text="Solo con WiFi"
+                    android:layout_marginTop="12dp" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/toggle_bg"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp" />
+                    android:text="Descarga en segundo plano" />
             </LinearLayout>
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <!-- Appearance Section -->
+        <!-- Player Settings -->
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Apariencia"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
-            android:layout_marginBottom="12dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="?attr/colorSurface"
-            android:padding="16dp"
-            android:elevation="2dp"
-
-            android:layout_marginBottom="24dp">
-
-            <!-- Theme Selection -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Modo"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
-                android:layout_marginBottom="8dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                                android:layout_marginBottom="16dp">
-
-                <Button
-                    android:id="@+id/theme_light_button"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Claro"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_button_theme"
-                    android:textColor="?android:attr/textColorPrimary" />
-
-                <Button
-                    android:id="@+id/theme_dark_button"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Oscuro"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_button_theme"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_marginStart="8dp" />
-
-                <Button
-                    android:id="@+id/theme_system_button"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Sistema"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_button_theme"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-
-            <!-- Accent Color Palette -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Color de acento"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Elige el color que define la identidad visual de la app"
-                android:textSize="11sp"
-                android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginBottom="12dp" />
-
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="5"
->
-
-                <Button
-                    android:id="@+id/color_mint"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Menta"
-                    android:textSize="9sp"
-                    android:background="@color/accent_mint"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_lilac"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Lila"
-                    android:textSize="9sp"
-                    android:background="@color/accent_lilac"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_blue"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Azul"
-                    android:textSize="9sp"
-                    android:background="@color/accent_blue"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_cream"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Crema"
-                    android:textSize="9sp"
-                    android:background="@color/accent_cream"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_peach"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Durazno"
-                    android:textSize="9sp"
-                    android:background="@color/accent_peach"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_yellow"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Amarillo"
-                    android:textSize="9sp"
-                    android:background="@color/accent_yellow"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_rose"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Rosa"
-                    android:textSize="9sp"
-                    android:background="@color/accent_rose"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_sage"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Salvia"
-                    android:textSize="9sp"
-                    android:background="@color/accent_sage"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_sky"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Cielo"
-                    android:textSize="9sp"
-                    android:background="@color/accent_sky"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-
-                <Button
-                    android:id="@+id/color_lavender"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:text="Lavanda"
-                    android:textSize="9sp"
-                    android:background="@color/accent_lavender"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:layout_columnWeight="1" />
-            </GridLayout>
-        </LinearLayout>
-
-        <!-- Playback Section -->
-        <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reproductor"
-            android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="14sp"
             android:layout_marginBottom="12dp" />
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            style="@style/NeobrutalCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="?attr/colorSurface"
-            android:padding="16dp"
-            android:elevation="2dp"
+            android:layout_marginBottom="32dp">
 
-            android:layout_marginBottom="24dp">
-
-            <!-- Loop Toggle -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Reproducción en bucle"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="?android:attr/textColorPrimary" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Repetir la lista al terminar"
-                        android:textSize="11sp"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/toggle_loop"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp" />
-            </LinearLayout>
-
-            <!-- Shuffle Toggle -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Aleatorio por defecto"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="?android:attr/textColorPrimary" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Activar shuffle al abrir la app"
-                        android:textSize="11sp"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
+                    android:text="Reproducción en bucle" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/toggle_shuffle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp" />
+                    android:text="Aleatorio por defecto" />
             </LinearLayout>
-        </LinearLayout>
-
-        <!-- Info Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Información"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
-            android:layout_marginBottom="12dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="?attr/colorSurface"
-            android:padding="16dp"
-            android:elevation="2dp"
->
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Política de privacidad"
-                android:textSize="12sp"
-                android:background="?attr/selectableItemBackground"
-                android:textColor="?android:attr/textColorPrimary"
-                android:layout_marginBottom="8dp" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Código fuente"
-                android:textSize="12sp"
-                android:background="?attr/selectableItemBackground"
-                android:textColor="?android:attr/textColorPrimary" />
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-
 </ScrollView>

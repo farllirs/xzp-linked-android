@@ -72,6 +72,25 @@ class AudioPlaybackService : Service() {
                 false
             }
         }
+        
+        startProgressReporting()
+    }
+
+    private fun startProgressReporting() {
+        kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.Dispatchers.Main) {
+            while (true) {
+                if (isPlaying && mediaPlayer?.isPlaying == true) {
+                    val current = mediaPlayer?.currentPosition ?: 0
+                    val total = mediaPlayer?.duration ?: 1
+                    val progress = (current * 100) / total
+                    
+                    val intent = Intent("com.xzplinked.app.PLAYER_PROGRESS")
+                    intent.putExtra("progress", progress)
+                    sendBroadcast(intent)
+                }
+                kotlinx.coroutines.delay(1000)
+            }
+        }
     }
 
     private fun setupBroadcastReceiver() {
@@ -112,6 +131,7 @@ class AudioPlaybackService : Service() {
             currentFilePath = filePath
             isPlaying = true
             updateNotification(true)
+            broadcastState(true)
         } catch (e: Exception) {
             android.util.Log.e("AudioPlayback", "Error playing audio", e)
         }
@@ -121,12 +141,21 @@ class AudioPlaybackService : Service() {
         mediaPlayer?.pause()
         isPlaying = false
         updateNotification(false)
+        broadcastState(false)
     }
 
     private fun resumeAudio() {
         mediaPlayer?.start()
         isPlaying = true
         updateNotification(true)
+        broadcastState(true)
+    }
+
+    private fun broadcastState(playing: Boolean) {
+        val intent = Intent("com.xzplinked.app.PLAYER_STATE")
+        intent.putExtra("is_playing", playing)
+        intent.putExtra("file_path", currentFilePath)
+        sendBroadcast(intent)
     }
 
     private fun stopAudio() {

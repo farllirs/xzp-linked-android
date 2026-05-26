@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/text_primary_light" />
-    <corners android:radius="16dp" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed State -->
+    <item android:state_pressed="true">
+        <layer-list>
+            <item android:top="2dp" android:left="2dp">
+                <shape>
+                    <solid android:color="@color/accent_mint" />
+                    <corners android:radius="@dimen/radius_sm" />
+                    <stroke android:width="@dimen/border_width" android:color="@color/border_light" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <!-- Default State -->
+    <item>
+        <layer-list>
+            <!-- Shadow -->
+            <item android:top="@dimen/shadow_offset_sm" android:left="@dimen/shadow_offset_sm">
+                <shape>
+                    <solid android:color="@color/shadow_light" />
+                    <corners android:radius="@dimen/radius_sm" />
+                </shape>
+            </item>
+            <!-- Main Body -->
+            <item android:bottom="@dimen/shadow_offset_sm" android:right="@dimen/shadow_offset_sm">
+                <shape>
+                    <solid android:color="@color/accent_mint" />
+                    <corners android:radius="@dimen/radius_sm" />
+                    <stroke android:width="@dimen/border_width" android:color="@color/border_light" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

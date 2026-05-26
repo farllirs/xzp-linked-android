@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
         // Configurar Bottom Navigation
         setupBottomNavigation()
 
-        // Iniciar servicio de reproducción de audio
-        startAudioService()
+        // Configurar Mini Player
+        setupMiniPlayer()
 
         // Observar cambios de tema
         viewModel.currentTheme.observe(this) { theme ->
@@ -54,13 +54,83 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun applyTheme() {
-        val theme = viewModel.getCurrentTheme()
-        when (theme) {
-            "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            "system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    private fun setupMiniPlayer() {
+        viewModel.currentTrack.observe(this) { track ->
+            if (track != null) {
+                binding.miniPlayer.visibility = View.VISIBLE
+                binding.miniTitle.text = track.title
+                binding.miniArtist.text = track.artist
+                // Aquí podrías cargar la carátula si existiera
+            } else {
+                binding.miniPlayer.visibility = View.GONE
+            }
         }
+
+        viewModel.isPlaying.observe(this) { isPlaying ->
+            binding.miniPlay.setImageResource(if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play)
+        }
+        
+        viewModel.playerProgress.observe(this) { progress ->
+            binding.miniProgress.progress = progress
+        }
+
+        binding.miniPlay.setOnClickListener {
+            togglePlayPause()
+        }
+
+        binding.miniNext.setOnClickListener {
+            playNext()
+        }
+
+        binding.miniPrev.setOnClickListener {
+            playPrev()
+        }
+
+        // Registrar receptor de estado
+        val stateFilter = android.content.IntentFilter("com.xzplinked.app.PLAYER_STATE")
+        val stateReceiver = object : android.content.BroadcastReceiver() {
+            override fun onReceive(context: android.content.Context?, intent: android.content.Intent?) {
+                val isPlaying = intent?.getBooleanExtra("is_playing", false) ?: false
+                val filePath = intent?.getStringExtra("file_path")
+                
+                viewModel.setIsPlaying(isPlaying)
+                filePath?.let { path ->
+                    viewModel.getTrackByPath(path)?.let { track ->
+                        viewModel.setCurrentTrack(track)
+                    }
+                }
+            }
+        }
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(progressReceiver, progressFilter, RECEIVER_NOT_EXPORTED)
+            registerReceiver(stateReceiver, stateFilter, RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(progressReceiver, progressFilter)
+            registerReceiver(stateReceiver, stateFilter)
+        }
+    }
+
+    private fun togglePlayPause() {
+        val intent = Intent(this, AudioPlaybackService::class.java)
+        intent.action = if (viewModel.isPlaying.value == true) {
+            AudioPlaybackService.ACTION_PAUSE
+        } else {
+            AudioPlaybackService.ACTION_RESUME
+        }
+        startService(intent)
+    }
+
+    private fun playNext() {
+        val intent = Intent(this, AudioPlaybackService::class.java)
+        intent.action = AudioPlaybackService.ACTION_NEXT
+        startService(intent)
+    }
+
+    private fun playPrev() {
+        val intent = Intent(this, AudioPlaybackService::class.java)
+        intent.action = AudioPlaybackService.ACTION_PREV
+        startService(intent)
     }
 
     private fun setupBottomNavigation() {
@@ -68,13 +138,19 @@ class MainActivity : AppCompatActivity() {
             val fragment: Fragment = when (item.itemId) {
                 R.id.nav_downloads -> DownloadsFragment()
                 R.id.nav_player -> PlayerFragment()
-                R.id.nav_settings -> SettingsFragment()
+                R.id.nav_settings -> {
+                    binding.miniPlayer.visibility = View.GONE
+                    SettingsFragment()
+                }
                 else -> DownloadsFragment()
+            }
+
+            if (item.itemId != R.id.nav_settings && viewModel.currentTrack.value != null) {
+                binding.miniPlayer.visibility = View.VISIBLE
             }
 
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
                 .commit()
 
             true
@@ -87,22 +163,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestRequiredPermissions() {
-        val permissions = mutableListOf(
-            Manifest.permission.INTERNET,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.MODIFY_AUDIO_SETTINGS,
-            Manifest.permission.POST_NOTIFICATIONS
-        )
+        val permissions = mutableListOf<String>()
+        
+        permissions.add(Manifest.permission.INTERNET)
+        permissions.add(Manifest.permission.MODIFY_AUDIO_SETTINGS)
 
-        // Agregar permisos específicos de Android 11+
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            permissions.add(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
+        // Permisos de Notificaciones (Android 13+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
         }
 
-        // Agregar permisos de Foreground Service (Android 12+)
+        // Permisos de Almacenamiento
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+, el permiso MANAGE_EXTERNAL_STORAGE se maneja vía Intent si es necesario
+            // pero para descargas simples, a veces basta con el Scoped Storage.
+            // Por ahora lo agregamos si el usuario lo requiere.
+            // permissions.add(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
+        } else {
+            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+
+        // Permisos de Foreground Service (Android 12+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             permissions.add(Manifest.permission.FOREGROUND_SERVICE)
+        }
+        
+        // Android 14+ requiere tipos específicos
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            permissions.add(Manifest.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK)
         }
 
         val permissionsToRequest = permissions.filter {

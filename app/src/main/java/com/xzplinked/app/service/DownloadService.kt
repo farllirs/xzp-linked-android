@@ -31,10 +31,10 @@ class DownloadService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val url = intent?.getStringExtra("url") ?: return START_NOT_STICKY
-        val fileName = intent.getStringExtra("file_name") ?: "download_${System.currentTimeMillis()}"
-        val downloadPath = intent.getStringExtra("download_path") ?: "/storage/emulated/0/Download/XZPLinked"
-        val downloadId = intent.getStringExtra("download_id") ?: System.currentTimeMillis().toString()
+        val url = intent?.getStringExtra(EXTRA_URL) ?: return START_NOT_STICKY
+        val fileName = intent.getStringExtra(EXTRA_FILE_NAME) ?: "download_${System.currentTimeMillis()}"
+        val downloadPath = intent.getStringExtra(EXTRA_DOWNLOAD_PATH) ?: "/storage/emulated/0/Download/XZPLinked"
+        val downloadId = intent.getStringExtra(EXTRA_DOWNLOAD_ID) ?: System.currentTimeMillis().toString()
 
         currentDownloadId = downloadId
 

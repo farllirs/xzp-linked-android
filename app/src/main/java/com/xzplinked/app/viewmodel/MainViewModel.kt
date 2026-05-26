@@ -41,6 +41,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _downloadProgress = MutableLiveData<Int>(0)
     val downloadProgress: LiveData<Int> = _downloadProgress
 
+    // Progreso de reproducción
+    private val _playerProgress = MutableLiveData<Int>(0)
+    val playerProgress: LiveData<Int> = _playerProgress
+
     // Ruta de descarga
     private val _downloadPath = MutableLiveData<String>()
     val downloadPath: LiveData<String> = _downloadPath
@@ -49,6 +53,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         loadPreferences()
         loadDownloads()
         loadTracks()
+    }
+
+    fun updatePlayerProgress(progress: Int) {
+        _playerProgress.postValue(progress)
     }
 
     private fun loadPreferences() {
@@ -111,6 +119,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getTrackById(id: String): Track? {
         return _tracks.value?.find { it.id == id }
+    }
+
+    fun getTrackByPath(path: String): Track? {
+        return _tracks.value?.find { it.filePath == path }
     }
 
     fun getAllTracks(): List<Track> {

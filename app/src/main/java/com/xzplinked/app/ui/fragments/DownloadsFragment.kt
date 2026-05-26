@@ -45,15 +45,15 @@ class DownloadsFragment : Fragment() {
 
         setupRecyclerView()
         setupListeners()
+        setupSpinners()
         observeViewModel()
     }
 
-    private fun setupRecyclerView() {
-        downloadAdapter = DownloadAdapter()
-        binding.downloadsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = downloadAdapter
-        }
+    private fun setupSpinners() {
+        val qualities = listOf("1080p", "720p", "480p", "360p", "320kbps", "192kbps", "128kbps")
+        val adapter = android.widget.ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, qualities)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.quality_spinner.adapter = adapter
     }
 
     private fun setupListeners() {
@@ -68,53 +68,52 @@ class DownloadsFragment : Fragment() {
         binding.fmtVideo.setOnClickListener {
             binding.fmtVideo.isSelected = true
             binding.fmtAudio.isSelected = false
+            // Actualizar spinner para video si es necesario
         }
 
         binding.fmtAudio.setOnClickListener {
             binding.fmtAudio.isSelected = true
             binding.fmtVideo.isSelected = false
+            // Actualizar spinner para audio
         }
-    }
 
-    private fun pasteFromClipboard() {
-        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = clipboard.primaryClip
-
-        if (clip != null && clip.itemCount > 0) {
-            val url = clip.getItemAt(0).text.toString()
-
-            if (mediaExtractor.validateUrl(url)) {
-                binding.urlInput.setText(url)
-                detectPlatform(url)
-                showToast("URL pegada correctamente")
-            } else {
-                showToast("URL no válida o plataforma no soportada")
+        binding.urlInput.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                detectPlatform(s.toString())
             }
-        } else {
-            showToast("Portapapeles vacío")
-        }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
+        
+        // Seleccionar video por defecto
+        binding.fmtVideo.isSelected = true
     }
 
     private fun detectPlatform(url: String) {
+        // Reset alphas
+        binding.platformYoutube.alpha = 0.3f
+        binding.platformTiktok.alpha = 0.3f
+        binding.platformInstagram.alpha = 0.3f
+        binding.platformX.alpha = 0.3f
+
         when {
-            url.contains("youtube.com") || url.contains("youtu.be") -> {
-                binding.platformYoutube.isSelected = true
+            url.contains("youtube.com", true) || url.contains("youtu.be", true) -> {
+                binding.platformYoutube.alpha = 1.0f
             }
-            url.contains("tiktok.com") -> {
-                binding.platformTiktok.isSelected = true
+            url.contains("tiktok.com", true) -> {
+                binding.platformTiktok.alpha = 1.0f
             }
-            url.contains("instagram.com") -> {
-                binding.platformInstagram.isSelected = true
+            url.contains("instagram.com", true) -> {
+                binding.platformInstagram.alpha = 1.0f
             }
-            url.contains("twitter.com") || url.contains("x.com") -> {
-                binding.platformX.isSelected = true
+            url.contains("twitter.com", true) || url.contains("x.com", true) -> {
+                binding.platformX.alpha = 1.0f
             }
         }
     }
 
     private fun startDownload() {
-        val url = binding.urlInput.text.toString().trim()
-
+        val url = binding.urlInput.text.toString()
         if (url.isEmpty()) {
             showToast("Ingresa una URL")
             return
@@ -125,16 +124,21 @@ class DownloadsFragment : Fragment() {
             return
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val downloadItem = mediaExtractor.extractMediaInfo(url)
+        val format = if (binding.fmtVideo.isSelected) "video" else "audio"
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            binding.downloadBtn.isEnabled = false
+            binding.downloadBtn.text = "Procesando..."
+
+            val downloadItem = mediaExtractor.extractMediaInfo(url, format)
 
             if (downloadItem != null) {
                 viewModel.addDownload(downloadItem)
 
-                // Iniciar servicio de descarga
+                // Iniciar servicio de descarga con la URL REAL devuelta por la API
                 val downloadIntent = Intent(requireContext(), DownloadService::class.java).apply {
-                    putExtra(DownloadService.EXTRA_URL, url)
-                    putExtra(DownloadService.EXTRA_FILE_NAME, "${downloadItem.title}.mp3")
+                    putExtra(DownloadService.EXTRA_URL, downloadItem.url)
+                    putExtra(DownloadService.EXTRA_FILE_NAME, "${downloadItem.title}.${if (format == "video") "mp4" else "mp3"}")
                     putExtra(DownloadService.EXTRA_DOWNLOAD_PATH, viewModel.downloadPath.value)
                     putExtra(DownloadService.EXTRA_DOWNLOAD_ID, downloadItem.id)
                 }
@@ -143,8 +147,11 @@ class DownloadsFragment : Fragment() {
                 showToast("Descarga iniciada")
                 binding.urlInput.setText("")
             } else {
-                showToast("Error al procesar la URL")
+                showToast("Error al procesar la URL (API no disponible)")
             }
+
+            binding.downloadBtn.isEnabled = true
+            binding.downloadBtn.text = "Descargar"
         }
     }
 
