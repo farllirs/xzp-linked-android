@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.xzplinked.app.R
 import com.xzplinked.app.databinding.ItemTrackBinding
 import com.xzplinked.app.model.Track
 
@@ -31,7 +32,7 @@ class TrackAdapter(
                 trackDuration.text = item.duration
 
                 // Usar iconos locales si existen
-                trackArt.setImageResource(com.xzplinked.app.R.drawable.ic_music)
+                trackArt.setImageResource(R.drawable.ic_music)
 
                 root.setOnClickListener {
                     onTrackClick(item)

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.xzplinked.app.R
 import com.xzplinked.app.databinding.FragmentSettingsBinding
 import com.xzplinked.app.viewmodel.MainViewModel
 

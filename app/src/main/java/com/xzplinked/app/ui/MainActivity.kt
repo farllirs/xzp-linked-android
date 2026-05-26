@@ -103,8 +103,8 @@ class MainActivity : AppCompatActivity() {
         }
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(progressReceiver, progressFilter, RECEIVER_NOT_EXPORTED)
-            registerReceiver(stateReceiver, stateFilter, RECEIVER_NOT_EXPORTED)
+            registerReceiver(progressReceiver, progressFilter, Context.RECEIVER_NOT_EXPORTED)
+            registerReceiver(stateReceiver, stateFilter, Context.RECEIVER_NOT_EXPORTED)
         } else {
             registerReceiver(progressReceiver, progressFilter)
             registerReceiver(stateReceiver, stateFilter)

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.xzplinked.app.R
 import com.xzplinked.app.databinding.ItemDownloadBinding
 import com.xzplinked.app.model.DownloadItem
 
@@ -31,21 +32,21 @@ class DownloadAdapter : ListAdapter<DownloadItem, DownloadAdapter.DownloadViewHo
 
                 // Color según plataforma
                 val colorRes = when (item.platform) {
-                    "youtube" -> com.xzplinked.app.R.color.accent_rose
-                    "tiktok" -> com.xzplinked.app.R.color.accent_blue
-                    "instagram" -> com.xzplinked.app.R.color.accent_lilac
-                    "x" -> com.xzplinked.app.R.color.accent_mint
-                    else -> com.xzplinked.app.R.color.accent_cream
+                    "youtube" -> R.color.accent_rose
+                    "tiktok" -> R.color.accent_blue
+                    "instagram" -> R.color.accent_lilac
+                    "x" -> R.color.accent_mint
+                    else -> R.color.accent_cream
                 }
                 downloadThumb.setBackgroundResource(colorRes)
 
                 when (item.status) {
                     "downloading" -> {
-                        downloadStatusIcon.setImageResource(com.xzplinked.app.R.drawable.ic_download)
+                        downloadStatusIcon.setImageResource(R.drawable.ic_download)
                         downloadStatusIcon.alpha = 0.5f
                     }
                     "completed" -> {
-                        downloadStatusIcon.setImageResource(com.xzplinked.app.R.drawable.ic_check)
+                        downloadStatusIcon.setImageResource(R.drawable.ic_check)
                         downloadStatusIcon.alpha = 1.0f
                     }
                     "failed" -> {

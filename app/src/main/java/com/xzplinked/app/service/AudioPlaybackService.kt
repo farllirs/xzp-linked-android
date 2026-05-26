@@ -104,7 +104,7 @@ class AudioPlaybackService : Service() {
             addAction(ACTION_PREV)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(notificationReceiver, filter, RECEIVER_NOT_EXPORTED)
+            registerReceiver(notificationReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
         } else {
             registerReceiver(notificationReceiver, filter)
         }
