@@ -104,6 +104,15 @@ class DownloadService : Service() {
             }
             sendBroadcast(completeIntent)
 
+            // Escanear archivo para que aparezca en la galería/reproductor
+            android.media.MediaScannerConnection.scanFile(
+                this@DownloadService,
+                arrayOf(if (downloadPath.startsWith("content://")) fileName else File(downloadPath, fileName).absolutePath),
+                null
+            ) { path, uri ->
+                android.util.Log.d("DownloadService", "File scanned: $path")
+            }
+
             updateNotification(100, fileName)
             stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()

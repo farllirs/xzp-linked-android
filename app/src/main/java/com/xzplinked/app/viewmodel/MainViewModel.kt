@@ -9,10 +9,23 @@ import androidx.preference.PreferenceManager
 import com.xzplinked.app.model.Track
 import com.xzplinked.app.model.DownloadItem
 
+import android.app.Application
+import android.content.ContentUris
+import android.content.SharedPreferences
+import android.provider.MediaStore
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.preference.PreferenceManager
+import com.xzplinked.app.model.Track
+import com.xzplinked.app.model.DownloadItem
+import java.util.concurrent.TimeUnit
+
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
 
+    // ... (LiveData declarations remain the same)
     // Tema
     private val _currentTheme = MutableLiveData<String>()
     val currentTheme: LiveData<String> = _currentTheme
@@ -52,70 +65,71 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init {
         loadPreferences()
         loadDownloads()
-        loadTracks()
+        refreshTracks()
     }
 
-    fun updatePlayerProgress(progress: Int) {
-        _playerProgress.postValue(progress)
-    }
+    fun refreshTracks() {
+        val trackList = mutableListOf<Track>()
+        val projection = arrayOf(
+            MediaStore.Audio.Media._ID,
+            MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.DURATION,
+            MediaStore.Audio.Media.DATA,
+            MediaStore.Audio.Media.SIZE,
+            MediaStore.Audio.Media.DISPLAY_NAME
+        )
 
-    private fun loadPreferences() {
-        val theme = prefs.getString("theme", "system") ?: "system"
-        _currentTheme.value = theme
+        val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0"
+        val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} DESC"
 
-        val accentColor = prefs.getString("accent_color", "mint") ?: "mint"
-        _accentColor.value = accentColor
+        getApplication<Application>().contentResolver.query(
+            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+            projection,
+            selection,
+            null,
+            sortOrder
+        )?.use { cursor ->
+            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
+            val titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
+            val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
+            val durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
+            val dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
+            val sizeColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE)
 
-        val downloadPath = prefs.getString("download_path", "/storage/emulated/0/Download/XZPLinked") ?: "/storage/emulated/0/Download/XZPLinked"
-        _downloadPath.value = downloadPath
-    }
+            while (cursor.moveToNext()) {
+                val id = cursor.getLong(idColumn)
+                val title = cursor.getString(titleColumn)
+                val artist = cursor.getString(artistColumn)
+                val durationMs = cursor.getLong(durationColumn)
+                val data = cursor.getString(dataColumn)
+                val size = cursor.getLong(sizeColumn)
 
-    fun setTheme(theme: String) {
-        _currentTheme.value = theme
-        prefs.edit().putString("theme", theme).apply()
-    }
+                val duration = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(durationMs),
+                    TimeUnit.MILLISECONDS.toSeconds(durationMs) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(durationMs))
+                )
 
-    fun getCurrentTheme(): String {
-        return prefs.getString("theme", "system") ?: "system"
-    }
-
-    fun setAccentColor(color: String) {
-        _accentColor.value = color
-        prefs.edit().putString("accent_color", color).apply()
-    }
-
-    fun setDownloadPath(path: String) {
-        _downloadPath.value = path
-        prefs.edit().putString("download_path", path).apply()
-    }
-
-    fun updateDownloadProgress(progress: Int) {
-        _downloadProgress.value = progress
-    }
-
-    fun addDownload(item: DownloadItem) {
-        val currentList = _downloads.value?.toMutableList() ?: mutableListOf()
-        currentList.add(0, item)
-        _downloads.value = currentList
-    }
-
-    fun setCurrentTrack(track: Track) {
-        _currentTrack.value = track
-    }
-
-    fun setIsPlaying(playing: Boolean) {
-        _isPlaying.value = playing
-    }
-
-    private fun loadDownloads() {
-        // Cargar descargas desde base de datos o almacenamiento
-        _downloads.value = emptyList()
+                trackList.add(Track(
+                    id = id.toString(),
+                    title = title,
+                    artist = artist,
+                    duration = duration,
+                    filePath = data,
+                    format = data.substringAfterLast(".", "mp3"),
+                    size = size,
+                    folder = data.substringBeforeLast("/", "Desconocido")
+                ))
+            }
+        }
+        _tracks.postValue(trackList)
     }
 
     private fun loadTracks() {
-        // Cargar tracks desde almacenamiento local
-        _tracks.value = emptyList()
+        refreshTracks()
     }
+
 
     fun getTrackById(id: String): Track? {
         return _tracks.value?.find { it.id == id }

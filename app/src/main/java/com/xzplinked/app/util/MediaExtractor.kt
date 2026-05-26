@@ -16,18 +16,15 @@ class MediaExtractor {
             val platform = detectPlatform(url)
             if (platform == null) return@withContext null
 
-            // Usando una API de ejemplo (Cobalt o similar que soporte yt-dlp)
-            // En producción, el usuario debería configurar su propia URL de API
+            // Usando la instancia oficial de Cobalt
             val apiUrl = "https://api.cobalt.tools/api/json"
-            val requestBody = """
-                {
-                    "url": "$url",
-                    "downloadMode": "${if (format == "video") "video" else "audio"}",
-                    "audioFormat": "mp3",
-                    "videoQuality": "720",
-                    "isNoTTWatermark": true
-                }
-            """.trimIndent()
+            val requestBody = JSONObject().apply {
+                put("url", url)
+                put("downloadMode", if (format == "video") "video" else "audio")
+                put("audioFormat", "mp3")
+                put("videoQuality", "720")
+                put("isNoTTWatermark", true)
+            }.toString()
 
             val connection = URL(apiUrl).openConnection() as java.net.HttpURLConnection
             connection.requestMethod = "POST"
@@ -41,16 +38,15 @@ class MediaExtractor {
             val responseCode = connection.responseCode
             if (responseCode in 200..299) {
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
-                val jsonResponse = org.json.JSONObject(response)
+                val jsonResponse = JSONObject(response)
                 
-                // El formato de respuesta de Cobalt puede ser "url", "text" (error) o "picker"
                 val downloadUrl = jsonResponse.optString("url")
-                val title = jsonResponse.optString("filename", extractTitle(url))
+                val status = jsonResponse.optString("status")
 
-                if (downloadUrl.isNotEmpty()) {
+                if (status == "stream" || status == "redirect" || downloadUrl.isNotEmpty()) {
                     return@withContext DownloadItem(
                         id = System.currentTimeMillis().toString(),
-                        title = title,
+                        title = jsonResponse.optString("filename", extractTitle(url)),
                         artist = extractArtist(url),
                         platform = platform,
                         url = downloadUrl,

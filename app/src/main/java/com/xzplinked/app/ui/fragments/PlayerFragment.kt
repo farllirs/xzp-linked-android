@@ -43,6 +43,11 @@ class PlayerFragment : Fragment() {
         observeViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshTracks()
+    }
+
     private fun setupRecyclerView() {
         trackAdapter = TrackAdapter { track ->
             viewModel.setCurrentTrack(track)
