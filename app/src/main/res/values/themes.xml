@@ -88,6 +88,6 @@
         <item name="boxCornerRadiusBottomEnd">@dimen/radius_sm</item>
         <item name="boxStrokeWidth">@dimen/border_width</item>
         <item name="boxStrokeColor">@color/border_light</item>
-        <item name="android:hintTextColor">@color/text_secondary_light</item>
+        <item name="android:textColorHint">@color/text_secondary_light</item>
     </style>
 </resources>
