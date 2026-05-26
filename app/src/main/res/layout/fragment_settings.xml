@@ -137,16 +137,16 @@
                     android:alignmentMode="alignMargins"
                     android:columnOrderPreserved="false">
 
-                    <View android:id="@+id/color_mint" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_mint" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_lilac" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_lilac" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_blue" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_blue" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_cream" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_cream" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_peach" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_peach" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_yellow" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_yellow" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_rose" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_rose" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_sage" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_sage" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_sky" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_sky" android:layout_margin="4dp" />
-                    <View android:id="@+id/color_lavender" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_lavender" android:layout_margin="4dp" />
+                    <View android:id="@+id/color_mint" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_mint" android:layout_margin="4dp" android:clickable="true" android:focusable="true" android:backgroundTint="@color/accent_mint" />
+                    <View android:id="@+id/color_lilac" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_lilac" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
+                    <View android:id="@+id/color_blue" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_blue" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
+                    <View android:id="@+id/color_cream" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_cream" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
+                    <View android:id="@+id/color_peach" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_peach" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
+                    <View android:id="@+id/color_yellow" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_yellow" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
+                    <View android:id="@+id/color_rose" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_rose" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
+                    <View android:id="@+id/color_sage" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_sage" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
+                    <View android:id="@+id/color_sky" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_sky" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
+                    <View android:id="@+id/color_lavender" android:layout_width="40dp" android:layout_height="40dp" android:background="@color/accent_lavender" android:layout_margin="4dp" android:clickable="true" android:focusable="true" />
                 </GridLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

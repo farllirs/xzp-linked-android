@@ -30,47 +30,47 @@
     </style>
 
     <!-- Variantes de Color de Acento -->
-    <style name="Theme.XZPLinked.Lilac">
+    <style name="Theme.XZPLinked.Lilac" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_lilac</item>
         <item name="colorPrimaryVariant">@color/accent_lilac</item>
         <item name="colorSecondary">@color/accent_lilac</item>
     </style>
-    <style name="Theme.XZPLinked.Blue">
+    <style name="Theme.XZPLinked.Blue" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_blue</item>
         <item name="colorPrimaryVariant">@color/accent_blue</item>
         <item name="colorSecondary">@color/accent_blue</item>
     </style>
-    <style name="Theme.XZPLinked.Cream">
+    <style name="Theme.XZPLinked.Cream" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_cream</item>
         <item name="colorPrimaryVariant">@color/accent_cream</item>
         <item name="colorSecondary">@color/accent_cream</item>
     </style>
-    <style name="Theme.XZPLinked.Peach">
+    <style name="Theme.XZPLinked.Peach" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_peach</item>
         <item name="colorPrimaryVariant">@color/accent_peach</item>
         <item name="colorSecondary">@color/accent_peach</item>
     </style>
-    <style name="Theme.XZPLinked.Yellow">
+    <style name="Theme.XZPLinked.Yellow" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_yellow</item>
         <item name="colorPrimaryVariant">@color/accent_yellow</item>
         <item name="colorSecondary">@color/accent_yellow</item>
     </style>
-    <style name="Theme.XZPLinked.Rose">
+    <style name="Theme.XZPLinked.Rose" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_rose</item>
         <item name="colorPrimaryVariant">@color/accent_rose</item>
         <item name="colorSecondary">@color/accent_rose</item>
     </style>
-    <style name="Theme.XZPLinked.Sage">
+    <style name="Theme.XZPLinked.Sage" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_sage</item>
         <item name="colorPrimaryVariant">@color/accent_sage</item>
         <item name="colorSecondary">@color/accent_sage</item>
     </style>
-    <style name="Theme.XZPLinked.Sky">
+    <style name="Theme.XZPLinked.Sky" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_sky</item>
         <item name="colorPrimaryVariant">@color/accent_sky</item>
         <item name="colorSecondary">@color/accent_sky</item>
     </style>
-    <style name="Theme.XZPLinked.Lavender">
+    <style name="Theme.XZPLinked.Lavender" parent="Theme.XZPLinked">
         <item name="colorPrimary">@color/accent_lavender</item>
         <item name="colorPrimaryVariant">@color/accent_lavender</item>
         <item name="colorSecondary">@color/accent_lavender</item>
