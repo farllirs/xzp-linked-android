@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import android.content.pm.PackageManager
 import com.xzplinked.app.R
 import com.xzplinked.app.databinding.ActivityMainBinding
+import com.xzplinked.app.model.Track
 import com.xzplinked.app.ui.fragments.DownloadsFragment
 import com.xzplinked.app.ui.fragments.PlayerFragment
 import com.xzplinked.app.ui.fragments.SettingsFragment

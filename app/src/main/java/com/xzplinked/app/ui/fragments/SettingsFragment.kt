@@ -55,6 +55,11 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun selectTheme(theme: String) {
+        viewModel.setTheme(theme)
+        showToast("Tema cambiado: $theme")
+    }
+
     private fun setupAccentColorPalette() {
         val colors = listOf(
             "mint" to binding.colorMint,

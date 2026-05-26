@@ -56,7 +56,7 @@ class DownloadsFragment : Fragment() {
         val qualities = listOf("1080p", "720p", "480p", "360p", "320kbps", "192kbps", "128kbps")
         val adapter = android.widget.ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, qualities)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.quality_spinner.adapter = adapter
+        binding.qualitySpinner.adapter = adapter
     }
 
     private fun setupListeners() {

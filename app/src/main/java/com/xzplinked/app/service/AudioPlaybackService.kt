@@ -19,6 +19,10 @@ import androidx.core.app.NotificationCompat
 import com.xzplinked.app.R
 import com.xzplinked.app.ui.MainActivity
 import com.xzplinked.app.receiver.NotificationReceiver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 
 class AudioPlaybackService : Service() {
@@ -77,7 +81,7 @@ class AudioPlaybackService : Service() {
     }
 
     private fun startProgressReporting() {
-        kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.Main) {
             while (true) {
                 if (isPlaying && mediaPlayer?.isPlaying == true) {
                     val current = mediaPlayer?.currentPosition ?: 0
@@ -88,7 +92,7 @@ class AudioPlaybackService : Service() {
                     intent.putExtra("progress", progress)
                     sendBroadcast(intent)
                 }
-                kotlinx.coroutines.delay(1000)
+                delay(1000)
             }
         }
     }
