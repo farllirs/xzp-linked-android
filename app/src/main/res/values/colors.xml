@@ -22,6 +22,7 @@
     <!-- Bordes -->
     <color name="border_light">#1A1A1A</color>
     <color name="border_dark">#E8E8E8</color>
+    <color name="border_color">#E8E8E8</color>
 
     <!-- Colores Pasteles (Material You) -->
     <color name="accent_mint">#B8F0D8</color>

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,47 +66,18 @@ class PlayerFragment : Fragment() {
             // Mostrar selector de carpetas
         }
 
-        binding.playButton.setOnClickListener {
+        binding.miniPlay.setOnClickListener {
             togglePlayPause()
         }
 
-        binding.nextButton.setOnClickListener {
+        binding.miniNext.setOnClickListener {
             playNextTrack()
         }
 
-        binding.prevButton.setOnClickListener {
+        binding.miniPrev.setOnClickListener {
             playPreviousTrack()
         }
 
-        binding.shuffleButton.setOnClickListener {
-            toggleShuffle()
-        }
-
-        binding.repeatButton.setOnClickListener {
-            toggleRepeat()
-        }
-
-        binding.volumeSlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    setVolume(progress / 100f)
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
-
-        binding.progressBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    seekTo(progress)
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
     }
 
     private fun loadAllTracks() {
@@ -165,24 +135,8 @@ class PlayerFragment : Fragment() {
         requireContext().startService(intent)
     }
 
-    private fun toggleShuffle() {
-        binding.shuffleButton.isSelected = !binding.shuffleButton.isSelected
-    }
-
-    private fun toggleRepeat() {
-        binding.repeatButton.isSelected = !binding.repeatButton.isSelected
-    }
-
-    private fun setVolume(volume: Float) {
-        // Enviar comando al servicio de audio
-    }
-
-    private fun seekTo(position: Int) {
-        // Enviar comando al servicio de audio
-    }
-
     private fun updatePlayButton() {
-        binding.playButton.isSelected = isPlaying
+        binding.miniPlay.isSelected = isPlaying
     }
 
     private fun observeViewModel() {
@@ -192,8 +146,8 @@ class PlayerFragment : Fragment() {
 
         viewModel.currentTrack.observe(viewLifecycleOwner) { track ->
             if (track != null) {
-                binding.trackTitle.text = track.title
-                binding.trackArtist.text = track.artist
+                binding.miniTitle.text = track.title
+                binding.miniArtist.text = track.artist
             }
         }
 

@@ -110,7 +110,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupDownloadPath() {
-        binding.browseButton.setOnClickListener {
+        binding.browseBtn.setOnClickListener {
             // Abrir selector de carpetas
             showToast("Selector de carpetas (próximamente)")
         }
@@ -121,24 +121,20 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupToggles() {
-        binding.wifiOnlyToggle.setOnClickListener {
-            binding.wifiOnlyToggle.isSelected = !binding.wifiOnlyToggle.isSelected
-            showToast("WiFi solo: ${binding.wifiOnlyToggle.isSelected}")
+        binding.toggleWifi.setOnClickListener {
+            showToast("WiFi solo: ${binding.toggleWifi.isChecked}")
         }
 
-        binding.backgroundPlayToggle.setOnClickListener {
-            binding.backgroundPlayToggle.isSelected = !binding.backgroundPlayToggle.isSelected
-            showToast("Reproducción en segundo plano: ${binding.backgroundPlayToggle.isSelected}")
+        binding.toggleBg.setOnClickListener {
+            showToast("Reproducción en segundo plano: ${binding.toggleBg.isChecked}")
         }
 
-        binding.loopToggle.setOnClickListener {
-            binding.loopToggle.isSelected = !binding.loopToggle.isSelected
-            showToast("Reproducción en bucle: ${binding.loopToggle.isSelected}")
+        binding.toggleLoop.setOnClickListener {
+            showToast("Reproducción en bucle: ${binding.toggleLoop.isChecked}")
         }
 
-        binding.shuffleToggle.setOnClickListener {
-            binding.shuffleToggle.isSelected = !binding.shuffleToggle.isSelected
-            showToast("Aleatorio por defecto: ${binding.shuffleToggle.isSelected}")
+        binding.toggleShuffle.setOnClickListener {
+            showToast("Aleatorio por defecto: ${binding.toggleShuffle.isChecked}")
         }
     }
 

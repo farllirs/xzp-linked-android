@@ -7,7 +7,7 @@
     android:background="?android:attr/colorSurface"
     android:padding="12dp"
     android:layout_marginBottom="8dp"
-    app:cornerRadius="12dp">
+>
 
     <!-- Artwork -->
     <ImageView
@@ -17,7 +17,7 @@
         android:src="@drawable/ic_music"
         android:contentDescription="Artwork"
         android:scaleType="centerCrop"
-        app:cornerRadius="8dp" />
+ />
 
     <!-- Info -->
     <LinearLayout

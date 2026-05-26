@@ -29,7 +29,6 @@ class TrackAdapter(
                 trackTitle.text = item.title
                 trackArtist.text = item.artist
                 trackDuration.text = item.duration
-                trackFormat.text = item.format.uppercase()
 
                 // Mostrar icono según el formato
                 val iconRes = when (item.format.lowercase()) {
@@ -38,7 +37,7 @@ class TrackAdapter(
                     "wav" -> android.R.drawable.ic_media_play
                     else -> android.R.drawable.ic_media_play
                 }
-                trackIcon.setImageResource(iconRes)
+                trackArtwork.setImageResource(iconRes)
 
                 // Marcar como favorito si lo es
                 if (item.isFavorite) {

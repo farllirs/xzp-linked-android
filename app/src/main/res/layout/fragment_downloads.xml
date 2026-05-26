@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:marginBottom="24dp">
+            android:layout_marginBottom="24dp">
 
             <ImageView
                 android:id="@+id/app_logo"
@@ -34,7 +34,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="?android:attr/textColorPrimary"
-                android:marginStart="12dp" />
+                android:layout_marginStart="12dp" />
 
             <ImageButton
                 android:id="@+id/header_notif_btn"
@@ -54,7 +54,7 @@
             android:background="?android:attr/colorSurface"
             android:padding="16dp"
             android:elevation="2dp"
-            app:cornerRadius="16dp">
+>
 
             <TextView
                 android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                 android:textSize="12sp"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textStyle="bold"
-                android:marginBottom="8dp" />
+                android:layout_marginBottom="8dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                     android:contentDescription="Pegar URL"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="centerInside"
-                    android:marginStart="8dp" />
+                    android:layout_marginStart="8dp" />
             </LinearLayout>
 
             <!-- Platform Detection -->
@@ -101,8 +101,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:marginTop="12dp"
-                android:spacing="8dp">
+                android:layout_marginTop="12dp"
+>
 
                 <ImageView
                     android:id="@+id/platform_youtube"
@@ -146,8 +146,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:marginTop="16dp"
-            android:spacing="8dp">
+            android:layout_marginTop="16dp"
+>
 
             <Button
                 android:id="@+id/fmt_video"

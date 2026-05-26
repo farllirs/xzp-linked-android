@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Cargar fragmento inicial
-        if (savedInstanceState == null) {
+        if (supportFragmentManager.fragments.isEmpty()) {
             binding.bottomNavigation.selectedItemId = R.id.nav_downloads
         }
     }

@@ -84,7 +84,11 @@ class AudioPlaybackService : Service() {
             addAction(ACTION_NEXT)
             addAction(ACTION_PREV)
         }
-        registerReceiver(notificationReceiver, filter)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(notificationReceiver, filter, RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(notificationReceiver, filter)
+        }
     }
 
     private fun playAudio(filePath: String?) {

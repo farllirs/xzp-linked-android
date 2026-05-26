@@ -57,22 +57,22 @@ class DownloadsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.pasteButton.setOnClickListener {
+        binding.pasteBtn.setOnClickListener {
             pasteFromClipboard()
         }
 
-        binding.downloadButton.setOnClickListener {
+        binding.downloadBtn.setOnClickListener {
             startDownload()
         }
 
-        binding.formatVideo.setOnClickListener {
-            binding.formatVideo.isSelected = true
-            binding.formatAudio.isSelected = false
+        binding.fmtVideo.setOnClickListener {
+            binding.fmtVideo.isSelected = true
+            binding.fmtAudio.isSelected = false
         }
 
-        binding.formatAudio.setOnClickListener {
-            binding.formatAudio.isSelected = true
-            binding.formatVideo.isSelected = false
+        binding.fmtAudio.setOnClickListener {
+            binding.fmtAudio.isSelected = true
+            binding.fmtVideo.isSelected = false
         }
     }
 

@@ -67,6 +67,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-ktx:1.8.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation("androidx.media:media:1.7.0")
 
     // Media3 / ExoPlayer
     implementation("androidx.media3:media3-exoplayer:1.1.1")
