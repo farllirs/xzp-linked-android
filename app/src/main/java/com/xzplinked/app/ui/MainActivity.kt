@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -26,6 +28,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private val PERMISSION_REQUEST_CODE = 100
+
+    private val progressFilter = android.content.IntentFilter("com.xzplinked.app.PLAYER_PROGRESS")
+    private val progressReceiver = object : android.content.BroadcastReceiver() {
+        override fun onReceive(context: android.content.Context?, intent: android.content.Intent?) {
+            val progress = intent?.getIntExtra("progress", 0) ?: 0
+            viewModel.updatePlayerProgress(progress)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +62,15 @@ class MainActivity : AppCompatActivity() {
         // Observar cambios de tema
         viewModel.currentTheme.observe(this) { theme ->
             applyTheme()
+        }
+    }
+
+    private fun applyTheme() {
+        val themeMode = viewModel.getCurrentTheme()
+        when (themeMode) {
+            "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
 
