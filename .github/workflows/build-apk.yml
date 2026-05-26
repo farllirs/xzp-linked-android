@@ -1,0 +1,84 @@
+name: Build XZP Linked APK
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 34
+          build-tools-version: 34.0.0
+          ndk-version: 25.1.8937393
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace --info
+
+      - name: Build Release APK
+        run: ./gradlew assembleRelease --stacktrace --info
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: xzp-linked-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 90
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: xzp-linked-release-apk
+          path: app/build/outputs/apk/release/app-release.apk
+          retention-days: 90
+
+      - name: Create Release (on Tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/apk/release/app-release.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Build completed! Download APKs from Artifacts.'
+            })
+
+      - name: Notify on Failure
+        if: failure()
+        run: echo "❌ Build failed. Check logs above."
