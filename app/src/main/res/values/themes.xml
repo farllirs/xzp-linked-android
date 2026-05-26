@@ -63,6 +63,8 @@
     </style>
 
     <!-- Colores Acentos (Material You) -->
+    <style name="AccentColor" />
+
     <style name="AccentColor.Mint">
         <item name="android:colorAccent">@color/accent_mint</item>
     </style>
