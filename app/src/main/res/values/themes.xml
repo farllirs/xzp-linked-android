@@ -2,7 +2,7 @@
 <resources>
     <!-- Tema Base (Claro) -->
     <style name="Theme.XZPLinked" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Colores Primarios -->
+        <!-- Colores Primarios (Por defecto Mint) -->
         <item name="colorPrimary">@color/accent_mint</item>
         <item name="colorPrimaryVariant">@color/accent_mint</item>
         <item name="colorSecondary">@color/accent_mint</item>
@@ -29,28 +29,51 @@
         <item name="android:windowActionBar">false</item>
     </style>
 
-    <!-- Tema Oscuro -->
-    <style name="Theme.XZPLinked.Dark" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Colores Primarios -->
-        <item name="colorPrimary">@color/accent_mint</item>
-        <item name="colorPrimaryVariant">@color/accent_mint</item>
-        <item name="colorSecondary">@color/accent_mint</item>
-
-        <!-- Colores de Fondo -->
-        <item name="android:colorBackground">@color/bg_dark</item>
-        <item name="colorSurface">@color/surface_dark</item>
-
-        <!-- Colores de Texto -->
-        <item name="android:textColorPrimary">@color/text_primary_dark</item>
-        <item name="android:textColorSecondary">@color/text_secondary_dark</item>
-
-        <!-- Status Bar -->
-        <item name="android:statusBarColor">@color/bg_dark</item>
-        <item name="android:windowLightStatusBar">false</item>
-
-        <!-- Navigation Bar -->
-        <item name="android:navigationBarColor">@color/surface_dark</item>
-        <item name="android:windowLightNavigationBar">false</item>
+    <!-- Variantes de Color de Acento -->
+    <style name="Theme.XZPLinked.Lilac">
+        <item name="colorPrimary">@color/accent_lilac</item>
+        <item name="colorPrimaryVariant">@color/accent_lilac</item>
+        <item name="colorSecondary">@color/accent_lilac</item>
+    </style>
+    <style name="Theme.XZPLinked.Blue">
+        <item name="colorPrimary">@color/accent_blue</item>
+        <item name="colorPrimaryVariant">@color/accent_blue</item>
+        <item name="colorSecondary">@color/accent_blue</item>
+    </style>
+    <style name="Theme.XZPLinked.Cream">
+        <item name="colorPrimary">@color/accent_cream</item>
+        <item name="colorPrimaryVariant">@color/accent_cream</item>
+        <item name="colorSecondary">@color/accent_cream</item>
+    </style>
+    <style name="Theme.XZPLinked.Peach">
+        <item name="colorPrimary">@color/accent_peach</item>
+        <item name="colorPrimaryVariant">@color/accent_peach</item>
+        <item name="colorSecondary">@color/accent_peach</item>
+    </style>
+    <style name="Theme.XZPLinked.Yellow">
+        <item name="colorPrimary">@color/accent_yellow</item>
+        <item name="colorPrimaryVariant">@color/accent_yellow</item>
+        <item name="colorSecondary">@color/accent_yellow</item>
+    </style>
+    <style name="Theme.XZPLinked.Rose">
+        <item name="colorPrimary">@color/accent_rose</item>
+        <item name="colorPrimaryVariant">@color/accent_rose</item>
+        <item name="colorSecondary">@color/accent_rose</item>
+    </style>
+    <style name="Theme.XZPLinked.Sage">
+        <item name="colorPrimary">@color/accent_sage</item>
+        <item name="colorPrimaryVariant">@color/accent_sage</item>
+        <item name="colorSecondary">@color/accent_sage</item>
+    </style>
+    <style name="Theme.XZPLinked.Sky">
+        <item name="colorPrimary">@color/accent_sky</item>
+        <item name="colorPrimaryVariant">@color/accent_sky</item>
+        <item name="colorSecondary">@color/accent_sky</item>
+    </style>
+    <style name="Theme.XZPLinked.Lavender">
+        <item name="colorPrimary">@color/accent_lavender</item>
+        <item name="colorPrimaryVariant">@color/accent_lavender</item>
+        <item name="colorSecondary">@color/accent_lavender</item>
     </style>
 
     <!-- Estilos de Componentes Neobrutalistas -->

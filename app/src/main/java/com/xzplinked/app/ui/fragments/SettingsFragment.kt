@@ -1,11 +1,13 @@
 package com.xzplinked.app.ui.fragments
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.xzplinked.app.R
@@ -18,6 +20,22 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: MainViewModel
+
+    private val folderPickerLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenDocumentTree()
+    ) { uri: Uri? ->
+        uri?.let {
+            // Persistir permisos
+            val contentResolver = requireContext().contentResolver
+            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            contentResolver.takePersistableUriPermission(it, takeFlags)
+            
+            val path = it.toString()
+            viewModel.setDownloadPath(path)
+            showToast("Ruta guardada: $path")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,27 +97,23 @@ class SettingsFragment : Fragment() {
                 selectAccentColor(colorName)
             }
         }
-        
-        // Marcar el color actual (podrías agregar un borde o check)
     }
 
     private fun selectAccentColor(color: String) {
         viewModel.setAccentColor(color)
         showToast("Color de acento: $color")
-        
-        // Aquí podrías notificar a MainActivity para que cambie el color primario dinámicamente
     }
 
     private fun setupDownloadPath() {
         binding.browseBtn.setOnClickListener {
-            // Abrir selector de carpetas
-            showToast("Selector de carpetas (próximamente)")
+            folderPickerLauncher.launch(null)
         }
 
         viewModel.downloadPath.observe(viewLifecycleOwner) { path ->
             binding.downloadPathInput.setText(path)
         }
     }
+
 
     private fun setupToggles() {
         binding.toggleWifi.setOnClickListener {

@@ -33,15 +33,17 @@ class MediaExtractor {
             connection.requestMethod = "POST"
             connection.setRequestProperty("Content-Type", "application/json")
             connection.setRequestProperty("Accept", "application/json")
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36")
             connection.doOutput = true
 
             connection.outputStream.use { it.write(requestBody.toByteArray()) }
 
-            if (connection.responseCode == 200) {
+            val responseCode = connection.responseCode
+            if (responseCode in 200..299) {
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
                 val jsonResponse = org.json.JSONObject(response)
                 
-                // El formato de respuesta depende de la API usada (aquí usamos el estándar de Cobalt)
+                // El formato de respuesta de Cobalt puede ser "url", "text" (error) o "picker"
                 val downloadUrl = jsonResponse.optString("url")
                 val title = jsonResponse.optString("filename", extractTitle(url))
 
@@ -51,7 +53,7 @@ class MediaExtractor {
                         title = title,
                         artist = extractArtist(url),
                         platform = platform,
-                        url = downloadUrl, // URL real de descarga
+                        url = downloadUrl,
                         format = format,
                         quality = if (format == "video") "720p" else "320kbps",
                         size = 0L,
@@ -59,7 +61,12 @@ class MediaExtractor {
                         status = "pending",
                         progress = 0
                     )
+                } else if (jsonResponse.has("text")) {
+                    Log.e("MediaExtractor", "API Error: " + jsonResponse.getString("text"))
                 }
+            } else {
+                val errorResponse = connection.errorStream?.bufferedReader()?.use { it.readText() }
+                Log.e("MediaExtractor", "HTTP Error $responseCode: $errorResponse")
             }
             null
         } catch (e: Exception) {

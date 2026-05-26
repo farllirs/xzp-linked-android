@@ -90,6 +90,9 @@ dependencies {
 
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    
+    // DocumentFile for storage access
+    implementation("androidx.documentfile:documentfile:1.0.1")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

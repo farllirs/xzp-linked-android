@@ -37,14 +37,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private var currentAppliedTheme = -1
+    private var currentAppliedNightMode = -1
 
+    override fun onCreate(savedInstanceState: Bundle?) {
         // Inicializar ViewModel
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        // Aplicar tema guardado
+        // Aplicar tema y color de acento
         applyTheme()
+
+        super.onCreate(savedInstanceState)
 
         // Configurar ViewBinding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -59,19 +62,50 @@ class MainActivity : AppCompatActivity() {
         // Configurar Mini Player
         setupMiniPlayer()
 
-        // Observar cambios de tema
+        // Observar cambios de tema y color
         viewModel.currentTheme.observe(this) { theme ->
-            applyTheme()
+            if (getNightMode(theme) != currentAppliedNightMode) {
+                recreate()
+            }
+        }
+        viewModel.accentColor.observe(this) { color ->
+            if (getThemeId(color) != currentAppliedTheme) {
+                recreate()
+            }
+        }
+    }
+
+    private fun getNightMode(themeMode: String): Int {
+        return when (themeMode) {
+            "light" -> AppCompatDelegate.MODE_NIGHT_NO
+            "dark" -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+    }
+
+    private fun getThemeId(accentColor: String?): Int {
+        return when (accentColor) {
+            "lilac" -> R.style.Theme_XZPLinked_Lilac
+            "blue" -> R.style.Theme_XZPLinked_Blue
+            "cream" -> R.style.Theme_XZPLinked_Cream
+            "peach" -> R.style.Theme_XZPLinked_Peach
+            "yellow" -> R.style.Theme_XZPLinked_Yellow
+            "rose" -> R.style.Theme_XZPLinked_Rose
+            "sage" -> R.style.Theme_XZPLinked_Sage
+            "sky" -> R.style.Theme_XZPLinked_Sky
+            "lavender" -> R.style.Theme_XZPLinked_Lavender
+            else -> R.style.Theme_XZPLinked
         }
     }
 
     private fun applyTheme() {
         val themeMode = viewModel.getCurrentTheme()
-        when (themeMode) {
-            "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        }
+        currentAppliedNightMode = getNightMode(themeMode)
+        AppCompatDelegate.setDefaultNightMode(currentAppliedNightMode)
+
+        val accentColor = viewModel.accentColor.value ?: "mint"
+        currentAppliedTheme = getThemeId(accentColor)
+        setTheme(currentAppliedTheme)
     }
 
     private fun setupMiniPlayer() {
@@ -194,11 +228,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Permisos de Almacenamiento
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // Android 11+, el permiso MANAGE_EXTERNAL_STORAGE se maneja vía Intent si es necesario
-            // pero para descargas simples, a veces basta con el Scoped Storage.
-            // Por ahora lo agregamos si el usuario lo requiere.
-            // permissions.add(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.READ_MEDIA_AUDIO)
+            permissions.add(Manifest.permission.READ_MEDIA_VIDEO)
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
         } else {
             permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)

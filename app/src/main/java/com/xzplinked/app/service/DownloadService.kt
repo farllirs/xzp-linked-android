@@ -6,9 +6,11 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import androidx.documentfile.provider.DocumentFile
 import com.xzplinked.app.R
 import com.xzplinked.app.ui.MainActivity
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +18,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
+import java.io.InputStream
+import java.io.OutputStream
 import java.net.URL
 import java.net.URLConnection
 
@@ -46,19 +50,29 @@ class DownloadService : Service() {
     }
 
     private fun downloadFile(url: String, fileName: String, downloadPath: String, downloadId: String) {
+        var inputStream: InputStream? = null
+        var outputStream: OutputStream? = null
         try {
-            val downloadDir = File(downloadPath)
-            if (!downloadDir.exists()) {
-                downloadDir.mkdirs()
-            }
-
-            val file = File(downloadDir, fileName)
             val connection = URL(url).openConnection() as URLConnection
             connection.connect()
-
             val fileLength = connection.contentLength
-            val inputStream = connection.getInputStream()
-            val outputStream = FileOutputStream(file)
+            inputStream = connection.getInputStream()
+
+            if (downloadPath.startsWith("content://")) {
+                val treeUri = Uri.parse(downloadPath)
+                val pickedDir = DocumentFile.fromTreeUri(this, treeUri)
+                val file = pickedDir?.createFile(if (fileName.endsWith(".mp4")) "video/mp4" else "audio/mpeg", fileName)
+                outputStream = file?.let { contentResolver.openOutputStream(it.uri) }
+            } else {
+                val downloadDir = File(downloadPath)
+                if (!downloadDir.exists()) {
+                    downloadDir.mkdirs()
+                }
+                val file = File(downloadDir, fileName)
+                outputStream = FileOutputStream(file)
+            }
+
+            if (outputStream == null) throw Exception("No se pudo crear el archivo de salida")
 
             val buffer = ByteArray(4096)
             var bytesRead: Int
@@ -76,7 +90,6 @@ class DownloadService : Service() {
 
                 updateNotification(progress, fileName)
 
-                // Enviar broadcast con el progreso
                 val progressIntent = Intent("com.xzplinked.app.DOWNLOAD_PROGRESS").apply {
                     putExtra("download_id", downloadId)
                     putExtra("progress", progress)
@@ -84,13 +97,9 @@ class DownloadService : Service() {
                 sendBroadcast(progressIntent)
             }
 
-            inputStream.close()
-            outputStream.close()
-
             // Notificar descarga completada
             val completeIntent = Intent("com.xzplinked.app.DOWNLOAD_COMPLETE").apply {
                 putExtra("download_id", downloadId)
-                putExtra("file_path", file.absolutePath)
                 putExtra("file_name", fileName)
             }
             sendBroadcast(completeIntent)
@@ -101,15 +110,16 @@ class DownloadService : Service() {
 
         } catch (e: Exception) {
             android.util.Log.e("DownloadService", "Error downloading file", e)
-
             val errorIntent = Intent("com.xzplinked.app.DOWNLOAD_ERROR").apply {
                 putExtra("download_id", downloadId)
                 putExtra("error", e.message)
             }
             sendBroadcast(errorIntent)
-
             stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
+        } finally {
+            inputStream?.close()
+            outputStream?.close()
         }
     }
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema Base (Oscuro) -->
+    <style name="Theme.XZPLinked" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Colores Primarios -->
+        <item name="colorPrimary">@color/accent_mint</item>
+        <item name="colorPrimaryVariant">@color/accent_mint</item>
+        <item name="colorSecondary">@color/accent_mint</item>
+
+        <!-- Colores de Fondo -->
+        <item name="android:colorBackground">@color/bg_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+
+        <!-- Colores de Texto -->
+        <item name="android:textColorPrimary">@color/text_primary_dark</item>
+        <item name="android:textColorSecondary">@color/text_secondary_dark</item>
+
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/bg_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Navigation Bar -->
+        <item name="android:navigationBarColor">@color/surface_dark</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <!-- Otros -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+</resources>
