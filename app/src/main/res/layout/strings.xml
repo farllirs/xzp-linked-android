@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">XZP Linked</string>
+    <string name="app_description">Media Downloader &amp; Player</string>
+
+    <!-- Navigation -->
+    <string name="nav_downloads">Descargas</string>
+    <string name="nav_player">Reproductor</string>
+    <string name="nav_settings">Ajustes</string>
+
+    <!-- Downloads Fragment -->
+    <string name="paste_link">Pegar enlace</string>
+    <string name="url_hint">https://youtube.com/watch?v=...</string>
+    <string name="paste_button">Pegar URL</string>
+    <string name="format_video">Video</string>
+    <string name="format_audio">Audio</string>
+    <string name="quality_label">Calidad</string>
+    <string name="download_button">Descargar</string>
+    <string name="recent_downloads">Descargas recientes</string>
+
+    <!-- Player Fragment -->
+    <string name="all_songs">Todas las canciones</string>
+    <string name="by_folders">Por Carpetas</string>
+    <string name="songs_count">Canciones</string>
+    <string name="folders_count">Carpetas</string>
+    <string name="duration_label">Duración</string>
+    <string name="library">Biblioteca</string>
+
+    <!-- Settings Fragment -->
+    <string name="settings_title">Ajustes</string>
+    <string name="version">Versión 1.0.0 · Build 2025</string>
+
+    <!-- Download Settings -->
+    <string name="downloads_section">Descargas</string>
+    <string name="download_path_label">Ruta de descarga</string>
+    <string name="download_path_desc">Carpeta donde se guardan los archivos</string>
+    <string name="browse_button">Explorar</string>
+    <string name="default_quality">Calidad por defecto</string>
+    <string name="quality_desc">Resolución de video y bitrate de audio</string>
+    <string name="wifi_only">Solo con WiFi</string>
+    <string name="wifi_only_desc">No descargar con datos móviles</string>
+    <string name="background_download">Descarga en segundo plano</string>
+    <string name="background_download_desc">Continuar al minimizar la app</string>
+
+    <!-- Appearance Settings -->
+    <string name="appearance_section">Apariencia</string>
+    <string name="theme_label">Modo</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="theme_system">Sistema</string>
+    <string name="accent_color_label">Color de acento</string>
+    <string name="accent_color_desc">Elige el color que define la identidad visual de la app</string>
+
+    <!-- Color Names -->
+    <string name="color_mint">Menta</string>
+    <string name="color_lilac">Lila</string>
+    <string name="color_blue">Azul</string>
+    <string name="color_cream">Crema</string>
+    <string name="color_peach">Durazno</string>
+    <string name="color_yellow">Amarillo</string>
+    <string name="color_rose">Rosa</string>
+    <string name="color_sage">Salvia</string>
+    <string name="color_sky">Cielo</string>
+    <string name="color_lavender">Lavanda</string>
+
+    <!-- Playback Settings -->
+    <string name="playback_section">Reproductor</string>
+    <string name="loop_label">Reproducción en bucle</string>
+    <string name="loop_desc">Repetir la lista al terminar</string>
+    <string name="shuffle_label">Aleatorio por defecto</string>
+    <string name="shuffle_desc">Activar shuffle al abrir la app</string>
+
+    <!-- Info Settings -->
+    <string name="info_section">Información</string>
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="source_code">Código fuente</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_playback">Reproducción de Música</string>
+    <string name="notification_channel_downloads">Descargas</string>
+    <string name="now_playing">Reproduciendo ahora</string>
+    <string name="downloading">Descargando...</string>
+    <string name="download_complete">Descarga completada</string>
+    <string name="download_failed">Error en la descarga</string>
+
+    <!-- Playback Controls -->
+    <string name="play">Reproducir</string>
+    <string name="pause">Pausar</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="shuffle">Aleatorio</string>
+    <string name="repeat">Repetir</string>
+    <string name="favorite">Favorito</string>
+
+    <!-- Toasts -->
+    <string name="url_pasted">URL pegada correctamente</string>
+    <string name="invalid_url">URL no válida o plataforma no soportada</string>
+    <string name="clipboard_empty">Portapapeles vacío</string>
+    <string name="download_started">Descarga iniciada</string>
+    <string name="error_processing_url">Error al procesar la URL</string>
+    <string name="permissions_required">Permisos Requeridos</string>
+    <string name="permissions_message">XZP Linked necesita permisos para funcionar correctamente</string>
+
+    <!-- Platforms -->
+    <string name="youtube">YouTube</string>
+    <string name="tiktok">TikTok</string>
+    <string name="instagram">Instagram</string>
+    <string name="x_platform">X</string>
+</resources>

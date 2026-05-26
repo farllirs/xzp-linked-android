@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores de Fondo -->
+    <color name="bg_light">#FAF8F5</color>
+    <color name="bg_dark">#0F0F0F</color>
+
+    <!-- Colores de Superficie -->
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_secondary_light">#F5F3F0</color>
+    <color name="surface_dark">#1A1A1A</color>
+    <color name="surface_secondary_dark">#252525</color>
+
+    <!-- Colores de Texto -->
+    <color name="text_primary_light">#1A1A1A</color>
+    <color name="text_secondary_light">#6B6B6B</color>
+    <color name="text_muted_light">#A0A0A0</color>
+
+    <color name="text_primary_dark">#F5F5F5</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+    <color name="text_muted_dark">#808080</color>
+
+    <!-- Bordes -->
+    <color name="border_light">#1A1A1A</color>
+    <color name="border_dark">#E8E8E8</color>
+
+    <!-- Colores Pasteles (Material You) -->
+    <color name="accent_mint">#B8F0D8</color>
+    <color name="accent_mint_dark">#7DD9B8</color>
+
+    <color name="accent_lilac">#E4D4F4</color>
+    <color name="accent_lilac_dark">#C9B5D8</color>
+
+    <color name="accent_blue">#C8E6FF</color>
+    <color name="accent_blue_dark">#8ECFFF</color>
+
+    <color name="accent_cream">#FFF3D6</color>
+    <color name="accent_cream_dark">#FFE5A0</color>
+
+    <color name="accent_peach">#FFD9C8</color>
+    <color name="accent_peach_dark">#FFB89F</color>
+
+    <color name="accent_yellow">#FFF0A0</color>
+    <color name="accent_yellow_dark">#FFE066</color>
+
+    <color name="accent_rose">#FFD6E0</color>
+    <color name="accent_rose_dark">#FFB3C1</color>
+
+    <color name="accent_sage">#C8E6C9</color>
+    <color name="accent_sage_dark">#9ECBA0</color>
+
+    <color name="accent_sky">#B3E5FC</color>
+    <color name="accent_sky_dark">#7FD8F7</color>
+
+    <color name="accent_lavender">#D1C4E9</color>
+    <color name="accent_lavender_dark">#B5A7D6</color>
+
+    <!-- Colores de Estado -->
+    <color name="success">#4CAF50</color>
+    <color name="error">#F44336</color>
+    <color name="warning">#FF9800</color>
+    <color name="info">#2196F3</color>
+
+    <!-- Colores de Iconos (Contraste mejorado) -->
+    <color name="icon_light">#1A1A1A</color>
+    <color name="icon_dark">#F5F5F5</color>
+    <color name="icon_muted_light">#6B6B6B</color>
+    <color name="icon_muted_dark">#B0B0B0</color>
+
+    <!-- Sombras -->
+    <color name="shadow_light">@color/text_primary_light</color>
+    <color name="shadow_dark">@color/text_primary_dark</color>
+
+    <!-- Transparencias -->
+    <color name="overlay_light">#1A1A1A</color>
+    <color name="overlay_dark">#000000</color>
+</resources>

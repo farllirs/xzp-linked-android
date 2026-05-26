@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="?android:attr/colorSurface"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp"
+    app:cornerRadius="12dp">
+
+    <!-- Artwork -->
+    <ImageView
+        android:id="@+id/download_artwork"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_music"
+        android:contentDescription="Artwork"
+        android:scaleType="centerCrop"
+        app:cornerRadius="8dp" />
+
+    <!-- Info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="12dp">
+
+        <TextView
+            android:id="@+id/download_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/download_artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Artist"
+            android:textSize="12sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="2dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:spacing="8dp"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:id="@+id/download_format"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MP3"
+                android:textSize="10sp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:background="@drawable/bg_badge"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp" />
+
+            <TextView
+                android:id="@+id/download_quality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="320kbps"
+                android:textSize="10sp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:background="@drawable/bg_badge"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp" />
+
+            <TextView
+                android:id="@+id/download_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8.4 MB"
+                android:textSize="10sp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:background="@drawable/bg_badge"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp" />
+        </LinearLayout>
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/download_progress"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progress="0"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- Status Icon -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginStart="12dp">
+
+        <ImageView
+            android:id="@+id/download_status_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_check"
+            android:contentDescription="Status" />
+
+        <TextView
+            android:id="@+id/download_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✓"
+            android:textSize="12sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+</LinearLayout>
